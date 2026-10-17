@@ -219,11 +219,11 @@ SIEM alert triage · Custom Wazuh detection rules · Windows event log analysis 
 .
 ├── README.md
 └── screenshots/
-    └── architecture.svg
-    └── 01-alerts.png
-    └── 02-windows-account-changes.webp
-    └── 03-ssh-failures.png
-    └── 04-active-response.png
-    └── 05-file-deleted.png
+    ├── architecture.svg
+    ├── 01-alerts.png
+    ├── 02-windows-account-changes.webp
+    ├── 03-ssh-failures.png
+    ├── 04-active-response.png
+    ├── 05-file-deleted.png
     └── 06-guest-disabled.png
 ```
