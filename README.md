@@ -1,6 +1,6 @@
 # Wazuh SOC Analyst Challenge: Incident Investigation Report
 
-> Hands-on SOC investigation completed with Wazuh, following the [MyDFIR Wazuh SOC Analyst Challenge](https://www.youtube.com/playlist?list=PLHmErnFy_2zk) (9-part series).
+> Hands-on SOC investigation completed with Wazuh.
 
 **Analyst:** Nathan Hoag
 **Tools:** Wazuh (SIEM/XDR) with Manager, Indexer and Dashboard; Wazuh agents on a Linux and a Windows endpoint
@@ -30,7 +30,7 @@ I triaged the alerts in the Wazuh dashboard, built a timeline from the logs, ide
 
 ## Lab Architecture
 
-![Wazuh SOC Lab Architecture](screenshots/architecture.svg)
+![Wazuh SOC Lab Architecture](architecture.svg)
 
 | Component | Role | OS / Details | IP |
 |---|---|---|---|
@@ -208,7 +208,3 @@ SIEM alert triage · Custom Wazuh detection rules · Windows event log analysis 
 └── screenshots/
     └── architecture.svg
 ```
-
-## Credits
-
-Lab guidance by [MyDFIR](https://www.youtube.com/playlist?list=PLHmErnFy_2zk). Analysis and write-up are my own.
