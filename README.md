@@ -131,17 +131,17 @@ All times are Eastern (EDT, UTC-4). Rows marked **(event time)** use the Windows
 ## 4. Evidence & Methodology
 
 1. **Detection (Linux, Oct 16 18:50 to 19:00):** Filtering to `agent.name: nhoag22-Linux` gives 27 hits that show the failed logins, the brute-force alert (100101), the firewall-drop block (651), and my own SSH login and `sudo` commands afterward.
-   `![Linux alerts](screenshots/01-alerts.png)`
+   ![Linux alerts](screenshots/01-alerts.png)
 2. **Windows account activity (`nhoag22-windows`, every event by `bob`):** Discover query `data.win.system.eventID: (4720 or 4722 or 4724 or 4725 or 4726 or 4732 or 4733 or 4738)` returns 31 hits (29 from the lab plus 2 from my `Guest` remediation). Columns show `targetUserName` (account changed), `subjectUserName` (who changed it) and `systemTime`.
-   `![Windows account changes](screenshots/02-windows-account-changes.png)`
+   ![Windows account changes](screenshots/02-windows-account-changes.webp)
 3. **SSH abuse analysis:** Filtered on `rule.id: 5503 AND data.srcip: 192.168.123.130`, which returns 4 hits (three on Oct 16 at 18:20, 18:34 and 18:54), confirming a single source.
-   `![SSH failures](screenshots/03-ssh-failures.png)`
+   ![SSH failures](screenshots/03-ssh-failures.png)
 4. **Containment:** The firewall-drop active response alert (rule 651) shows Wazuh blocking `192.168.123.130` automatically.
-   `![Active response](screenshots/04-active-response.png)`
+   ![Active response](screenshots/04-active-response.png)
 5. **File deletion (FIM):** The Wazuh agent's syscheck module logged `File '/opt/company-data/test.txt' deleted` in realtime mode at 03:28:28 UTC on Oct 16 (rule 553, level 7). The last known state shows a 17-byte file owned by root, last modified 24 seconds before deletion. The owner shown is the file's, not necessarily the user who deleted it. A second rule 553 alert on `nhoag22-windows` shows `c:\companydata\payroll.txt` deleted at 17:34:14 EDT the same day.
-   `![File deletion](screenshots/05-file-deleted.png)`
+   ![File deletion](screenshots/05-file-deleted.png)
 6. **Remediation:** `Disable-LocalUser -Name Guest` followed by `Get-LocalUser Guest` shows `Enabled: False`.
-   `![Guest disabled](screenshots/06-guest-disabled.png)`
+   ![Guest disabled](screenshots/06-guest-disabled.png)
 
 **`student1` created and escalated:** the 4720 alert's "New Account" Security ID (`...-1003`) matches the Member Security ID in the 4732 alert for `Administrators`, which confirms `student1` was the account added to Administrators. Windows logged the two events 17 seconds apart (`systemTime` 23:53:09 and 23:53:26 UTC on Oct 14).
 
