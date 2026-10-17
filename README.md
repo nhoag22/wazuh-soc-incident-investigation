@@ -30,7 +30,7 @@ I triaged the alerts in the Wazuh dashboard, built a timeline from the logs, ide
 
 ## Lab Architecture
 
-![Wazuh SOC Lab Architecture](architecture.svg)
+![Wazuh SOC Lab Architecture](screenshots/architecture.svg)
 
 | Component | Role | OS / Details | IP |
 |---|---|---|---|
