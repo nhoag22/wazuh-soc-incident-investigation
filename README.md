@@ -126,6 +126,19 @@ All times are Eastern (EDT, UTC-4). Rows marked **(event time)** use the Windows
 | **Why** | The activity was simulated in my lab for training. I performed the account changes as `bob` on the Windows VM, toggled `Guest` to develop and test custom rule 100200, ran the failed SSH attempts from that same VM (after an accidental successful login just before them), and deleted `/opt/company-data/test.txt` and `c:\companydata\payroll.txt` myself to test File Integrity Monitoring. In a real incident, creating an admin account and deleting it, repeatedly enabling `Guest`, and guessing SSH passwords from the same host would indicate persistence, privilege escalation, evasion and a lateral-movement attempt. |
 | **How** | Windows: local account management run as `bob` (`student1` created, added to Administrators, then deleted; `Guest` enabled and disabled). Linux: repeated SSH password attempts from the Windows host generated PAM and sshd failures, which the Wazuh agent forwarded to the manager. |
 
+## MITRE ATT&CK Mapping
+
+| Observed Activity | Tactic | Technique | ID | Evidence |
+|---|---|---|---|---|
+| SSH password guessing against `nhoag22` from 192.168.123.130 | Credential Access | Brute Force: Password Guessing | T1110.001 | Rules 5503, 5760, 100101 |
+| SSH login to the Linux host from the Windows host with valid credentials | Lateral Movement | Remote Services: SSH | T1021.004 | Rule 5715 at 18:53:28 |
+| `student1` account created by `bob` | Persistence | Create Account: Local Account | T1136.001 | Event 4720, rule 60109 |
+| `student1` added to Administrators, then deleted about a minute later | Persistence / Privilege Escalation | Account Manipulation | T1098 | Events 4732, 4733, 4726; rule 60154 (level 12) |
+| `Guest` account repeatedly enabled | Persistence | Valid Accounts: Default Accounts | T1078.001 | Events 4722, 4738; custom rule 100200 |
+| Files deleted on both hosts, detected by FIM | Defense Evasion | Indicator Removal: File Deletion | T1070.004 | Rule 553 (`payroll.txt`, `test.txt`) |
+
+> These activities were simulated in my lab. The mapping shows how the same behavior would be classified in a real incident.
+
 ---
 
 ## 4. Evidence & Methodology
