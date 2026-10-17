@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="520" fill="#ffffff"/>
+
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#111827">Wazuh SOC Lab Architecture</text>
+  <text x="500" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Endpoint activity → Wazuh agents → SIEM detection → analyst investigation</text>
+
+  <!-- Lab network boundary -->
+  <rect x="15" y="80" width="970" height="380" rx="14" fill="#f9fafb" stroke="#9ca3af" stroke-dasharray="6 5"/>
+  <text x="30" y="102" font-size="12" fill="#6b7280">Lab network: 192.168.123.0/24</text>
+
+  <!-- Windows endpoint -->
+  <rect x="30" y="140" width="240" height="150" rx="10" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="150" y="168" text-anchor="middle" font-size="16" font-weight="bold" fill="#312e81">Windows Endpoint</text>
+  <text x="150" y="190" text-anchor="middle" font-size="13" fill="#312e81">nhoag22-windows (VM)</text>
+  <text x="150" y="210" text-anchor="middle" font-size="12" fill="#312e81">IP: 192.168.123.130</text>
+  <text x="150" y="230" text-anchor="middle" font-size="12" fill="#312e81">User: bob  ·  SSH client</text>
+  <rect x="50" y="246" width="200" height="30" rx="6" fill="#ffffff" stroke="#4338ca"/>
+  <text x="150" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#312e81">Wazuh Agent (Security log, FIM)</text>
+
+  <!-- Linux endpoint -->
+  <rect x="385" y="140" width="230" height="150" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="500" y="168" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">Linux Endpoint</text>
+  <text x="500" y="190" text-anchor="middle" font-size="13" fill="#1e3a8a">nhoag22-Linux (Ubuntu VM)</text>
+  <text x="500" y="210" text-anchor="middle" font-size="12" fill="#1e3a8a">IP: 192.168.123.129  ·  SSH (22)</text>
+  <rect x="425" y="246" width="150" height="30" rx="6" fill="#ffffff" stroke="#1d4ed8"/>
+  <text x="500" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a8a">Wazuh Agent (FIM, auth logs)</text>
+
+  <!-- Wazuh Server -->
+  <rect x="750" y="130" width="220" height="170" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="860" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#14532d">Wazuh Server</text>
+  <text x="860" y="178" text-anchor="middle" font-size="12" fill="#14532d">IP: 192.168.123.128  ·  Ubuntu</text>
+  <rect x="772" y="190" width="176" height="28" rx="6" fill="#ffffff" stroke="#15803d"/>
+  <text x="860" y="209" text-anchor="middle" font-size="12" fill="#14532d">Wazuh Manager (rules/alerts)</text>
+  <rect x="772" y="224" width="176" height="28" rx="6" fill="#ffffff" stroke="#15803d"/>
+  <text x="860" y="243" text-anchor="middle" font-size="12" fill="#14532d">Wazuh Indexer</text>
+  <rect x="772" y="258" width="176" height="28" rx="6" fill="#ffffff" stroke="#15803d"/>
+  <text x="860" y="277" text-anchor="middle" font-size="12" fill="#14532d">Wazuh Dashboard</text>
+
+  <!-- Analyst -->
+  <rect x="750" y="390" width="220" height="48" rx="10" fill="#fef9c3" stroke="#a16207" stroke-width="2"/>
+  <text x="860" y="411" text-anchor="middle" font-size="14" font-weight="bold" fill="#713f12">SOC Analyst (Me) · 192.168.123.1</text>
+  <text x="860" y="428" text-anchor="middle" font-size="11" fill="#713f12">Browser → Dashboard (HTTPS 443)</text>
+
+  <!-- Arrows -->
+  <line x1="270" y1="215" x2="383" y2="215" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+  <text x="327" y="200" text-anchor="middle" font-size="10" fill="#b91c1c" font-weight="bold">① Failed SSH</text>
+  <text x="327" y="238" text-anchor="middle" font-size="10" fill="#b91c1c">logins · TCP 22</text>
+
+  <line x1="615" y1="215" x2="748" y2="215" stroke="#374151" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="682" y="198" text-anchor="middle" font-size="11" fill="#374151" font-weight="bold">② Logs + FIM events</text>
+  <text x="682" y="238" text-anchor="middle" font-size="11" fill="#374151">TCP 1514</text>
+
+  <polyline points="150,290 150,360 700,360 700,262 748,262" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="425" y="350" text-anchor="middle" font-size="11" fill="#374151" font-weight="bold">② Windows Security events · TCP 1514</text>
+
+  <line x1="860" y1="390" x2="860" y2="302" stroke="#374151" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="845" y="380" text-anchor="end" font-size="11" fill="#374151" font-weight="bold">③ Triage &amp; investigation</text>
+
+  <!-- Legend -->
+  <text x="30" y="485" font-size="12" fill="#6b7280">① Failed SSH logins   ② Agent-to-manager telemetry   ③ Analyst access</text></svg>
